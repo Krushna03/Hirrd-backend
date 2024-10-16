@@ -4,10 +4,17 @@ import cors from "cors"
 
 const app = express()
 
+// app.use(cors({
+//    origin: process.env.CORS_ORIGIN,
+//    credentials: true
+// }))
+
 app.use(cors({
-   origin: process.env.CORS_ORIGIN,
-   credentials: true
-}))
+   origin: ['https://hirrd-frontend-agbo.vercel.app'],  // Allow your front-end
+   credentials: true,  // Allow credentials (cookies, authentication)
+   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow common methods
+   allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
+ }));
 
 app.use(express.json({ limit: '20kb' }))
 
