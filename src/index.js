@@ -4,7 +4,7 @@ import connectDB from './DataBase/index.js'
 
 
 dotenv.config({
-  path: "./env"
+  path: ".env"
 })
 
 
