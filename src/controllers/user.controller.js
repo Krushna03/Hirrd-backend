@@ -1,6 +1,8 @@
+import { SavedJob } from '../models/SavedJobs.model.js'
 import { User } from '../models/user.model.js'
 import { ApiError } from '../utils/ApiError.js'
 import { ApiResponse } from '../utils/ApiResponse.js'
+import { Application } from '../models/applications.js'
 
 
 const generateAccessAndRefreshTokens = async (userID) => {
@@ -25,8 +27,6 @@ const generateAccessAndRefreshTokens = async (userID) => {
 const registerUser = async (req, res) => {
    const { username, email, password} = req.body;
 
-   console.log(username);
-   console.log(req.body);
 
    if ([username, email, password].some((filed) => filed?.trim() === "")) {
     throw new ApiError(400, "All fields are required") 
@@ -149,14 +149,18 @@ const logoutUser = async ( req, res ) => {
 }
 
 
-const getCurrentUser = async(req, res) => {
-   const user = await req.user.populate('savedJobs');
+const getCurrentUser = async (req, res) => {
+   
+   const user = req.user;
 
-   return res
-          .status(200)
-          .json(
-            new ApiResponse(200, user, "User fetched successfully")
-          )
+   const savedJobs = await SavedJob.find({ user_id: user._id}).populate("SavedJobs")
+
+   const userApplications = await Application.find({ candidate_id: user._id}).populate("SavedJobs")
+
+   return res.status(200)
+             .json(
+               new ApiResponse(200, {user, savedJobs, userApplications}, "User fetched successfully")
+             )
 }
 
 

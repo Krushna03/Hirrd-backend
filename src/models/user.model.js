@@ -33,15 +33,15 @@ const userSchema = new mongoose.Schema({
     savedJobs: [
       { 
          type: Schema.Types.ObjectId, 
-         ref: "Job" 
+         ref: "SavedJob" 
       }
     ],
-   //  AppliedJobs: [
-   //    {
-   //       type: Schema.Types.ObjectId,
-   //       ref: "Application"
-   //    }
-   //  ]
+    AppliedJobs: [
+      {
+         type: Schema.Types.ObjectId,
+         ref: "Application"
+      }
+    ]
     
 
 }, {timestamps: true})

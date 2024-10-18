@@ -10,7 +10,8 @@ const app = express()
 // }))
 
 app.use(cors({
-   origin: ['https://hirrd-frontend-agbo.vercel.app'],  // Allow your front-end
+   // origin: ['https://hirrd-frontend-agbo.vercel.app'], //production url
+   origin: ['http://localhost:5173'], 
    credentials: true,  // Allow credentials (cookies, authentication)
    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow common methods
    allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
